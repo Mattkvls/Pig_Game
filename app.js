@@ -8,40 +8,46 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var score, roundScore, activePlayer;
+var score, roundScore, activePlayer, gamePlaying;
+
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
-    //each time someone hits the button a random number is generated 
-   var dice= Math.floor(Math.random()*6)+1; //generate a random number from 1-6
-    //display the result 
-    var diceDom=document.querySelector('.dice');
-    diceDom.style.display='block';
-    diceDom.src='dice-'+dice+'.png';
-    // update the round score If rolled number was not 1
-    if(dice>1){
-        //update score
-        roundScore=roundScore+dice;
-        document.querySelector('#current-'+activePlayer).textContent=roundScore;
-    }else{
-        //next Player
-       nextPlayer();
+    if(gamePlaying){
+         //each time someone hits the button a random number is generated 
+        var dice= Math.floor(Math.random()*6)+1; //generate a random number from 1-6
+        //display the result 
+        var diceDom=document.querySelector('.dice');
+        diceDom.style.display='block';
+        diceDom.src='dice-'+dice+'.png';
+        // update the round score If rolled number was not 1
+        if(dice!==1){
+            //update score
+            roundScore=roundScore+dice;
+            document.querySelector('#current-'+activePlayer).textContent=roundScore;
+        }else{
+            //next Player
+            nextPlayer();
+        }
     }
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    //add the current score to Global score 
-    score[activePlayer]+=roundScore;
-    // Update the UI
-    document.querySelector('#score-'+activePlayer).textContent=score[activePlayer];
-    //Check if player won the game 
-    if(score[activePlayer]>=10){
-        //end Game
-        endGame();
-    }else{
-        //next Player
-        nextPlayer();
+
+    if(gamePlaying){
+         //add the current score to Global score 
+        score[activePlayer]+=roundScore;
+        // Update the UI
+        document.querySelector('#score-'+activePlayer).textContent=score[activePlayer];
+        //Check if player won the game 
+        if(score[activePlayer]>=10){
+            //end Game
+            endGame();
+        }else{
+            //next Player
+            nextPlayer();
+        }
     }
 
 })
@@ -78,6 +84,9 @@ function endGame(){
     //remove the active class from the player
     document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
 
+    //set the gamePlaying to false
+    gamePlaying=false;
+
     //hide the roll and hold btns 
     // document.querySelector('.btn-roll').style.display='none';
     // document.querySelector('.btn-hold').style.display='none';
@@ -88,6 +97,7 @@ function init(){
     score=[0,0];
     roundScore=0;
     activePlayer=0; // 0 or 1 to read the score from the array
+    gamePlaying= true;
     
     document.getElementById('score-0').textContent='0';
     document.getElementById('score-1').textContent='0';
