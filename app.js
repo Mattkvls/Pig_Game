@@ -9,14 +9,8 @@ GAME RULES:
 
 */
 var score, roundScore, activePlayer;
-score=[0,0];
-roundScore=0;
-activePlayer=0; // 0 or 1 to read the score from the array
 
-document.getElementById('score-0').textContent='0';
-document.getElementById('score-1').textContent='0';
-document.getElementById('current-0').textContent='0';
-document.getElementById('current-1').textContent='0';
+init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     //each time someone hits the button a random number is generated 
@@ -51,6 +45,9 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     }
 
 })
+
+//new game functioonality 
+document.querySelector('.btn-new').addEventListener('click', init);
 
 
 //declare the functions that will be used again and again 
@@ -87,6 +84,18 @@ function endGame(){
 
 }
 
-function resetGame(){
+function init(){
+    score=[0,0];
+    roundScore=0;
+    activePlayer=0; // 0 or 1 to read the score from the array
+    
+    document.getElementById('score-0').textContent='0';
+    document.getElementById('score-1').textContent='0';
+    document.getElementById('current-0').textContent='0';
+    document.getElementById('current-1').textContent='0';
 
+    document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
 }
+
+// click the new Game the game starts from the beginning 
