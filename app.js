@@ -96,6 +96,10 @@ function init(){
 
     document.querySelector('.player-0-panel').classList.add('active');
     document.querySelector('.player-1-panel').classList.remove('active');
+
+    //remove the class winner
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
 }
 
 // click the new Game the game starts from the beginning 
