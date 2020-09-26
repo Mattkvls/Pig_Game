@@ -1,0 +1,11 @@
+{
+  "name": "starter",
+  "version": "1.0.0",
+  "description": "project for jonas course",
+  "main": "app.js",
+  "scripts": {
+    "start": "live-server --browser=firefox"
+  },
+  "author": "matt",
+  "license": "ISC"
+}
