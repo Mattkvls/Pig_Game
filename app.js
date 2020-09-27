@@ -113,3 +113,12 @@ function init(){
 }
 
 // click the new Game the game starts from the beginning 
+
+
+
+//1) 2 sixs in a raw player looses all his score 
+//tip save the previous dice roll and the current 
+
+//2) add an input field to the html where the players can set the winning score . use the .value property
+
+// 3) add a second dice --> the player looses his score if one of them is 1
