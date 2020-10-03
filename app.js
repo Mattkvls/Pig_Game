@@ -8,24 +8,33 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var score, roundScore, activePlayer, gamePlaying;
+var score, roundScore, activePlayer, gamePlaying, prevDice;
 
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying){
-         //each time someone hits the button a random number is generated 
+        //each time someone hits the button a random number is generated 
         var dice= Math.floor(Math.random()*6)+1; //generate a random number from 1-6
+        //var dice=6; //generate a random number from 1-6
         //display the result 
         var diceDom=document.querySelector('.dice');
         diceDom.style.display='block';
         diceDom.src='dice-'+dice+'.png';
-        // update the round score If rolled number was not 1
-        if(dice!==1){
-            //update score
-            roundScore=roundScore+dice;
-            document.querySelector('#current-'+activePlayer).textContent=roundScore;
+         // update the round score If rolled number was not 1
+        if(dice!==1){ 
+            console.log(dice+' this is dice');
+            console.log(prevDice + ' this is prevDice');
+            if(dice===6 && prevDice===6){
+                document.querySelector('#current-'+activePlayer).textContent='double sixs';
+                roundScore=0;
+            }else{
+                //update score
+                roundScore=roundScore+dice;
+                document.querySelector('#current-'+activePlayer).textContent=roundScore;
+                prevDice=dice;
+            }
         }else{
             //next Player
             nextPlayer();
@@ -41,7 +50,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         // Update the UI
         document.querySelector('#score-'+activePlayer).textContent=score[activePlayer];
         //Check if player won the game 
-        if(score[activePlayer]>=10){
+        if(score[activePlayer]>=document.querySelector('#scrset').value){
             //end Game
             endGame();
         }else{
@@ -59,6 +68,8 @@ document.querySelector('.btn-new').addEventListener('click', init);
 //declare the functions that will be used again and again 
 
 function nextPlayer(){
+    //reset the prevDice
+    prevDice=0;
     //make the roundScore=0
     roundScore=0;
     //next player with ternary operator 
@@ -98,6 +109,7 @@ function init(){
     roundScore=0;
     activePlayer=0; // 0 or 1 to read the score from the array
     gamePlaying= true;
+    prevDice=0;
     
     document.getElementById('score-0').textContent='0';
     document.getElementById('score-1').textContent='0';
