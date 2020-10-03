@@ -17,21 +17,27 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying){
         //each time someone hits the button a random number is generated 
         var dice= Math.floor(Math.random()*6)+1; //generate a random number from 1-6
-        //var dice=6; //generate a random number from 1-6
+        var dice2=Math.floor(Math.random()*6)+1;
         //display the result 
         var diceDom=document.querySelector('.dice');
         diceDom.style.display='block';
         diceDom.src='dice-'+dice+'.png';
+
+        //upddate the second dice with id dice2
+        var diceDom2=document.querySelector('#dice2');
+        diceDom2.style.display='block';
+        diceDom2.src='dice-'+dice2+'.png';
+
          // update the round score If rolled number was not 1
-        if(dice!==1){ 
+        if(dice!==1 && dice2!==1){ 
             console.log(dice+' this is dice');
             console.log(prevDice + ' this is prevDice');
-            if(dice===6 && prevDice===6){
+            if(dice===6 && dice2===6){
                 document.querySelector('#current-'+activePlayer).textContent='double sixs';
                 roundScore=0;
             }else{
                 //update score
-                roundScore=roundScore+dice;
+                roundScore=roundScore+dice+dice2;
                 document.querySelector('#current-'+activePlayer).textContent=roundScore;
                 prevDice=dice;
             }
@@ -84,6 +90,7 @@ function nextPlayer(){
 
       //hide the dice 
       document.querySelector('.dice').style.display='none';
+      document.querySelector('#dice2').style.display='none';
 }
 
 function endGame(){
@@ -92,6 +99,7 @@ function endGame(){
     document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
     //hide the dice 
     document.querySelector('.dice').style.display='none';
+    document.querySelector('#dice2').style.display='none';
     //remove the active class from the player
     document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
 
